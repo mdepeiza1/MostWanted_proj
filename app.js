@@ -85,7 +85,7 @@ function searchByName(people){
 function searchByTrait(people){
   let trait = promptFor("What color eyes does the person have?", chars);
 
-  let personFound = people.filter(function(person){
+  let peopleFound = people.filter(function(person){
     if(person.eyeColor === trait){
       return true;
     }
@@ -93,7 +93,22 @@ function searchByTrait(people){
       return false;
     }
   })
-  return displayPeople(personFound);
+
+  displayPeople(peopleFound);
+
+  if(peopleFound.length == 1)
+  {
+    return peopleFound[0];
+  }
+  else if(peopleFound.length > 1)
+  {
+    let numFromList = parseInt(promptFor("Please select the number of the person from the list (1 to " + peopleFound.length + ").", chars));//might change chars to num
+    return peopleFound[numFromList-1];
+  }
+  else
+  {
+    return null;
+  }
 }
 
 function searchByCriteria(people){
