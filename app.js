@@ -41,7 +41,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars); //added chars
 
   switch(displayOption){
     case "info":
@@ -70,14 +70,27 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
-  let foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
+  switch(firstName){
+    case true:
+      switch(lastName){
+        case true:
+          let foundPerson = people.filter(function(person){
+            if(person.firstName === firstName && person.lastName === lastName){
+              return true;
+            }
+            else{
+              return false;
+            }
+          })
+        break;
+        default:
+        return mainMenu(person, people);//might have to change this
+      }
+    break;
+    default:
+    return mainMenu(person, people);
+  }
+  
   // TODO: find the person using the name they entered
   //return foundPerson;
   return foundPerson[0];
@@ -333,5 +346,10 @@ function yesNo(input){
 
 // helper function to pass in as default promptFor validation
 function chars(input){
-  return true; // default validation only
+  return (typeof(input) === "string"); // default validation only
+}
+
+// helper function to pass in as number validation
+function num(input){
+  return (typeof(input) === "number"); // default validation only
 }
