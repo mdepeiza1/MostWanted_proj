@@ -42,6 +42,7 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
+    displayFamily(person, people);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -140,7 +141,7 @@ function displayInfo(person){
   alert(personInfo);
 }
 
-function displayFamily(person){
+function displayFamily(initialPerson, people){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
 
@@ -148,19 +149,67 @@ function displayFamily(person){
   //personInfo += "Last Name: " + person.lastName + "\n";
 
   // TODO: finish getting the rest of the information to display
-  let personInfo = "ID: " + person.id + "\n";
-  personInfo += "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "DOB: " + person.dob + "\n";
-  personInfo += "Height: " + person.height + "\n";
-  personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Eye Color: " + person.eyeColor + "\n";
-  personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Parents: " + person.parents + "\n";
-  personInfo += "Current Spouse: " + person.currentSpouse + "\n";
 
-  alert(personInfo);
+  let foundPersonParents = people.filter(function(personSearchedFor){
+
+    if(initialPerson.parents.length === 0)
+    {
+      return false;
+    }
+    else if(initialPerson.parents.length === 1 && (initialPerson.parents[0] === personSearchedFor.id)){
+      return true;
+    }
+    else if(initialPerson.parents.length === 2 && ((initialPerson.parents[0] === personSearchedFor.id)||(initialPerson.parents[1] === personSearchedFor.id))){
+      return true;
+    }
+
+    /*if(person.parents.id === id){
+      return true;
+    }
+    else{
+      return false;
+    }*/
+  })
+
+  let foundPersonSpouse = people.filter(function(personSearchedFor){
+
+    if(initialPerson.currentSpouse === personSearchedFor.id){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+
+
+  let foundPersonSiblings = people.filter(function(personSearchedFor){
+
+    if(foundPersonParents.length === 0){
+      return false;
+    }
+    else if(initialPerson.parents.length === 1 && (initialPerson.parents[0] === personSearchedFor.parents[0] || initialPerson.parents[0] === personSearchedFor.parents[1])){
+      return true;
+    }
+    else if(initialPerson.parents.length === 2 && (((initialPerson.parents[0] === personSearchedFor.parents[0])||(initialPerson.parents[0] === personSearchedFor.parents[1]))
+    ||((initialPerson.parents[1] === personSearchedFor.parents[1]) || (initialPerson.parents[1] === personSearchedFor.parents[0])))){
+      return true;
+    }
+  })
+
+  let personFamilyInfo = "";
+
+  for(let x = 0; x < foundPersonParents.length; x++){
+    personFamilyInfo += "Parent " + parseInt(x+1) + ": " + foundPersonParents[x].firstName + " " + foundPersonParents[x].lastName + "\n";
+  }  
+  if(foundPersonSpouse.length != 0)
+  {
+    personFamilyInfo += "Spouse: " + foundPersonSpouse[0].firstName + " " + foundPersonSpouse[0].lastName + "\n";
+  }
+  for(let x = 0; x < foundPersonSiblings.length; x++){
+    personFamilyInfo += "Sibling " + parseInt(x+1) + ": " + foundPersonSiblings[x].firstName + " " + foundPersonSiblings[x].lastName + "\n";
+  }  
+
+  alert(personFamilyInfo);
 }
 
 // function that prompts and validates user input
