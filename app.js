@@ -12,7 +12,15 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = searchByTrait(people);
+      let numberOfCriteria = promptFor("Would you like to search multiple traits? Enter 'yes' or 'no'", yesNo).toLowerCase();
+      switch(numberOfCriteria){
+        case 'yes':
+          searchResults = searchByCriteria(people);
+          break;
+        case 'no':
+          searchResults = searchByTrait(people);
+          break;
+      }
       break;
       default:
     app(people); // restart app
@@ -75,17 +83,35 @@ function searchByName(people){
 }
 
 function searchByTrait(people){
-  let firstTrait = promptFor("What color eyes does the person have?", chars);
+  let trait = promptFor("What color eyes does the person have?", chars);
 
   let personFound = people.filter(function(person){
-    if(person.eyeColor === firstTrait){
+    if(person.eyeColor === trait){
       return true;
     }
     else{
       return false;
     }
   })
-  return personFound[0];
+  return displayPeople(personFound);
+}
+
+function searchByCriteria(people){
+  let firstCriteria = promptFor("Is the person male or female?", chars);
+  let secondCriteria = promptFor("When were they born?", chars);
+  let thirdCriteria = promptFor("How tall are they?", chars);
+  let fourthCriteria = promptFor("How much do they weigh?", chars);
+  let fifthCriteria = promptFor("What is their occupation?", chars);
+
+  let peopleFound = people.filter(function(person){
+    if(person.gender === firstCriteria || person.occupation === secondCriteria || person.height === thirdCriteria || person.weight === fourthCriteria || person.dob === fifthCriteria){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return displayPeople(peopleFound);
 }
 
 // alerts a list of people
