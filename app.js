@@ -54,6 +54,7 @@ function mainMenu(person, people){
     break;
     case "descendants":
     // TODO: get person's descendants
+    displayDescendants(person, people);
     break;
     case "restart":
     app(people); // restart
@@ -266,6 +267,56 @@ function displayFamily(initialPerson, people){
 
   alert(personFamilyInfo);
 }
+
+
+function displayDescendants(initialPerson, people){
+   let foundPersonDescendants = people.filter(function(personSearchedFor){
+      if((personSearchedFor.parents.length !== 0) && ((initialPerson.id === personSearchedFor.parents[0]) || (initialPerson.id === personSearchedFor.parents[1])))
+      {
+        return true;
+      }
+  else 
+      {
+        return false;
+      }
+    })
+  let descendantsToDisplay = [];
+
+  if(foundPersonDescendants.length !== 0)
+  {
+    for(let j = 0; j < foundPersonDescendants.length; j++){
+      if(foundPersonDescendants[j] !== null)
+      {
+        descendantsToDisplay.push(foundPersonDescendants[j]);
+      }
+    } 
+  }
+
+  if(foundPersonDescendants.length !== 0)
+  {
+    for(let x = 0; x < foundPersonDescendants.length; x++){
+      descendantsToDisplay.push(displayDescendants(foundPersonDescendants[x], people));
+    } 
+  }
+  let displayDescendantsToScreen = "";
+  if(descendantsToDisplay.length !== 0)
+  {
+    for(let i = 0; i < descendantsToDisplay.length; i++){
+      if(descendantsToDisplay[i].firstName !== undefined)
+      {
+        displayDescendantsToScreen += "Parent " + parseInt(i+1) + ": " + descendantsToDisplay[i].firstName + 
+        " " + descendantsToDisplay[i].lastName + "\n";
+      }
+    } 
+  }
+  if(displayDescendantsToScreen !== "")
+  {
+    alert(displayDescendantsToScreen);
+  }
+  return descendantsToDisplay;
+  }
+  
+
 
 // function that prompts and validates user input
 function promptFor(question, valid){
