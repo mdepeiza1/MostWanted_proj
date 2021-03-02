@@ -99,7 +99,6 @@ function searchByName(people){
 
 function searchByTrait(people){
   let trait = promptFor("What color eyes does the person have?", chars);
-
   let peopleFound = people.filter(function(person){
     if(person.eyeColor === trait){
       return true;
@@ -108,12 +107,12 @@ function searchByTrait(people){
       return false;
     }
   })
-
-  displayPeople(peopleFound);
-
+    
+      displayPeople(peopleFound);
+  
   let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
   let personFound = people.filter(function(person){
-    if(person.firstName === chosenPerson){
+    if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
       return true;
     }
     else{
@@ -144,14 +143,14 @@ function searchByCriteria(people){
   
   let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
   let personFound = people.filter(function(person){
-    if(person.firstName === chosenPerson){
+    if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
       return true;
     }
     else{
       return false;
     }
   })
-  return personFound[0];  
+  return personFound[0];
 }
 
 // alerts a list of people
