@@ -113,18 +113,25 @@ function searchByTrait(people){
           displayPeople(peopleFound);
       
       let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
-      let personFound = people.filter(function(person){
-        if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
-          return true;
-        }
-        else{
-          return false;
-        }
-      })
-      return personFound[0];  
+
+      switch(typeof(chosenPerson) === "string"){
+        case true: let personFound = people.filter(function(person){
+          if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
+            return true;
+          }
+          else{
+            return false;
+          }
+        })
+        return personFound[0];
+        break;
+        default:
+        return searchByTrait(people);//might have to change this
+      }
     break;
     default:
     return searchByTrait(people);//might have to change this
+  }
 }
 
 function searchByCriteria(people){
@@ -157,15 +164,21 @@ function searchByCriteria(people){
                       displayPeople(peopleFound);
                       
                       let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
-                      let personFound = people.filter(function(person){
-                        if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
-                          return true;
-                        }
-                        else{
-                          return false;
-                        }
-                      })
-                      return personFound[0];
+
+                      switch(typeof(chosenPerson) === "string"){
+                        case true: let personFound = people.filter(function(person){
+                          if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
+                            return true;
+                          }
+                          else{
+                            return false;
+                          }
+                        })
+                        return personFound[0];
+                        break;
+                        default:
+                        return searchByCriteria(people);//might have to change this
+                      }
                     break;
                     default:
                     return searchByCriteria(people);//might have to change this
@@ -185,6 +198,7 @@ function searchByCriteria(people){
     break;
     default:
     return searchByCriteria(people);//might have to change this
+  }
 }
 
 // alerts a list of people
