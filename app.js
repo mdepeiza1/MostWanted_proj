@@ -69,12 +69,13 @@ function mainMenu(person, people){
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
+  let foundPerson = [];
 
-  switch(firstName){
+  switch(typeof(firstName) === "string"){
     case true:
-      switch(lastName){
+      switch(typeof(lastName) === "string"){
         case true:
-          let foundPerson = people.filter(function(person){
+          foundPerson = people.filter(function(person){
             if(person.firstName === firstName && person.lastName === lastName){
               return true;
             }
@@ -84,11 +85,11 @@ function searchByName(people){
           })
         break;
         default:
-        return mainMenu(person, people);//might have to change this
+        return searchByName(people);//might have to change this
       }
     break;
     default:
-    return mainMenu(person, people);
+    return searchByName(people);
   }
   
   // TODO: find the person using the name they entered
@@ -346,7 +347,7 @@ function yesNo(input){
 
 // helper function to pass in as default promptFor validation
 function chars(input){
-  return (typeof(input) === "string"); // default validation only
+  return (typeof(input) == "string"); // default validation only
 }
 
 // helper function to pass in as default promptFor validation
@@ -357,5 +358,5 @@ function chars(input){
 
 // helper function to pass in as number validation
 function num(input){
-  return (typeof(input) === "number"); // default validation only
+  return (typeof(input) == "number"); // default validation only
 }
