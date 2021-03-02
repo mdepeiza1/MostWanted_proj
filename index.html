@@ -3,9 +3,42 @@
   <head>
     <meta charset="utf-8">
     <title>devCodeCamp &middot; Most Wanted</title>
+    <style>
+    .container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+.container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container .btn:hover {
+  background-color: rgba(61, 60, 60, 0.644);
+}
+      </style>
   </head>
   <body>
-    <button onclick="app(data)">Start Searching</button>
+    <div class="container">
+    <img src="803917-looney-tunes-humor-funny-cartoon-family-merrie-melodies-748x547.jpg" alt="Wanted DaffyDuck">
+    <button class="btn" onclick="app(data)">Start Searching</button>
+    </div>
     <script src="data.js"></script>
     <script src="app.js"></script>
   </body>
