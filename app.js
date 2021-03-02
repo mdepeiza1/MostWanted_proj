@@ -140,28 +140,59 @@ function searchByCriteria(people){
   let fourthCriteria = promptFor("How much do they weigh?", chars);
   let fifthCriteria = promptFor("What is their occupation?", chars);
 
-  let peopleFound = people.filter(function(person){
-    if(person.gender === firstCriteria || person.occupation === secondCriteria || person.height === thirdCriteria || person.weight === fourthCriteria || person.dob === fifthCriteria)//
-    {
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  displayPeople(peopleFound);
-  if(peopleFound.length == 1)
-  {
-    return peopleFound[0];
-  }
-  else if(peopleFound.length > 1)
-  {
-    let numFromList = parseInt(promptFor("Please select the number of the person from the list (1 to " + peopleFound.length + ").", chars));//might change chars to num
-    return peopleFound[numFromList-1];
-  }
-  else
-  {
-    return null;
+
+  switch(typeof(firstCriteria) === "string"){
+    case true:
+      switch(typeof(secondCriteria) === "string"){
+        case true:
+          switch(typeof(thirdCriteria) === "string"){
+            case true:
+              switch(typeof(fourthCriteria) === "string"){
+                case true:
+                  switch(typeof(fifthCriteria) === "string"){
+                    case true:
+                      let peopleFound = people.filter(function(person){
+                        if(person.gender === firstCriteria || person.occupation === secondCriteria || person.height === thirdCriteria || person.weight === fourthCriteria || person.dob === fifthCriteria)//
+                        {
+                          return true;
+                        }
+                        else{
+                          return false;
+                        }
+                      })
+                      displayPeople(peopleFound);
+                      if(peopleFound.length == 1)
+                      {
+                        return peopleFound[0];
+                      }
+                      else if(peopleFound.length > 1)
+                      {
+                        let numFromList = parseInt(promptFor("Please select the number of the person from the list (1 to " + peopleFound.length + ").", chars));//might change chars to num
+                        return peopleFound[numFromList-1];
+                      }
+                      else
+                      {
+                        return null;
+                      }
+                    break;
+                    default:
+                    return searchByCriteria(people);//might have to change this
+                  }
+                break;
+                default:
+                return searchByCriteria(people);//might have to change this
+              }
+            break;
+            default:
+            return searchByCriteria(people);//might have to change this
+          }
+        break;
+        default:
+        return searchByCriteria(people);//might have to change this
+      }
+    break;
+    default:
+    return searchByCriteria(people);//might have to change this
   }
 }
 
