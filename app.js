@@ -318,7 +318,7 @@ function displayDescendants(initialPerson, people){
     for(let i = 0; i < descendantsToDisplay.length; i++){
       if(descendantsToDisplay[i].firstName !== undefined)
       {
-        displayDescendantsToScreen += "Parent " + parseInt(i+1) + ": " + descendantsToDisplay[i].firstName + 
+        displayDescendantsToScreen += "Descendant " + parseInt(i+1) + ": " + descendantsToDisplay[i].firstName + 
         " " + descendantsToDisplay[i].lastName + "\n";
       }
     } 
