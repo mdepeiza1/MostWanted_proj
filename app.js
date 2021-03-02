@@ -85,12 +85,12 @@ function searchByTrait(people){
   })
         
   displayPeople(peopleFound);
-  choosePerson();
+  return choosePerson(people);
 }
 
 function searchByCriteria(people){
   let firstCriteria = promptFor("Is the person male or female?", chars);
-  let secondCriteria = promptFor("When were they born?", chars);
+  let secondCriteria = promptFor("When were they born?", date);
   let thirdCriteria = promptFor("How tall are they?", num);
   let fourthCriteria = promptFor("How much do they weigh?", num);
   let fifthCriteria = promptFor("What is their occupation?", chars);
@@ -105,10 +105,10 @@ function searchByCriteria(people){
     })
                       
   displayPeople(peopleFound);
-  choosePerson();
+  return choosePerson(people);
   }
 
-  function choosePerson(){
+  function choosePerson(people){
   let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
   let personFound = people.filter(function(person){
     if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
@@ -278,11 +278,15 @@ function chars(input){
   }
 }
 
+function date(input){
+    return (typeof(input) == "string");
+}
+
 function num(input){
   if(isNaN(input)){
     return false;
   }
   else{
-    return (typeof(input) == "number");
+    return (typeof(input) == "string");
   }
 }
