@@ -35,7 +35,7 @@ function mainMenu(person, people){
     return app(people);
   }
 
-  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars); //added chars
+  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars);
 
   switch(displayOption){
     case "info":
@@ -62,125 +62,64 @@ function searchByName(people){
   let lastName = promptFor("What is the person's last name?", chars);
   let foundPerson = [];
 
-  switch(typeof(firstName) === "string"){
-    case true:
-      switch(typeof(lastName) === "string"){
-        case true:
-          foundPerson = people.filter(function(person){
-            if(person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()){
-              return true;
-            }
-            else{
-              return false;
-            }
-          })
-        break;
-        default:
-        return searchByName(people);
-      }
-    break;
-    default:
-    return searchByName(people);
-  }
-
+  foundPerson = people.filter(function(person){
+    if(person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
   return foundPerson[0];
 }
 
 function searchByTrait(people){
   let trait = promptFor("What color eyes does the person have?", chars);
-  switch(typeof(trait) === "string"){
-    case true:
-      let peopleFound = people.filter(function(person){
-        if(person.eyeColor === trait){
-          return true;
-        }
-        else{
-          return false;
-        }
-      })
+  let peopleFound = people.filter(function(person){
+    if(person.eyeColor === trait){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
         
-          displayPeople(peopleFound);
-      
-      let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
-
-      switch(typeof(chosenPerson) === "string"){
-        case true: let personFound = people.filter(function(person){
-          if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
-            return true;
-          }
-          else{
-            return false;
-          }
-        })
-        return personFound[0];
-        default:
-        return searchByTrait(people);
-      }
-    default:
-    return searchByTrait(people);
-  }
+  displayPeople(peopleFound);
+  choosePerson();
 }
 
 function searchByCriteria(people){
   let firstCriteria = promptFor("Is the person male or female?", chars);
   let secondCriteria = promptFor("When were they born?", chars);
-  let thirdCriteria = promptFor("How tall are they?", chars);
-  let fourthCriteria = promptFor("How much do they weigh?", chars);
+  let thirdCriteria = promptFor("How tall are they?", num);
+  let fourthCriteria = promptFor("How much do they weigh?", num);
   let fifthCriteria = promptFor("What is their occupation?", chars);
-
-  switch(typeof(firstCriteria) === "string"){
-    case true:
-      switch(typeof(secondCriteria) === "string"){
-        case true:
-          switch(typeof(thirdCriteria) === "string"){
-            case true:
-              switch(typeof(fourthCriteria) === "string"){
-                case true:
-                  switch(typeof(fifthCriteria) === "string"){
-                    case true:
-                      let peopleFound = people.filter(function(person){
-                        if(person.gender === firstCriteria || person.occupation === secondCriteria || person.height === thirdCriteria || person.weight === fourthCriteria || person.dob === fifthCriteria)//
-                        {
-                          return true;
-                        }
-                        else{
-                          return false;
-                        }
-                      })
+  let peopleFound = people.filter(function(person){
+    if(person.gender === firstCriteria || person.occupation === secondCriteria || person.height === thirdCriteria || person.weight === fourthCriteria || person.dob === fifthCriteria)//
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+    })
                       
-                      displayPeople(peopleFound);
-                      
-                      let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
-
-                      switch(typeof(chosenPerson) === "string"){
-                        case true: let personFound = people.filter(function(person){
-                          if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
-                            return true;
-                          }
-                          else{
-                            return false;
-                          }
-                        })
-                        return personFound[0];
-                        default:
-                        return searchByCriteria(people);
-                      }
-                    default:
-                    return searchByCriteria(people);
-                  }
-                default:
-                return searchByCriteria(people);
-              }
-            default:
-            return searchByCriteria(people);
-          }
-        default:
-        return searchByCriteria(people);
-      }
-    default:
-    return searchByCriteria(people);
+  displayPeople(peopleFound);
+  choosePerson();
   }
-}
+
+  function choosePerson(){
+  let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
+  let personFound = people.filter(function(person){
+    if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
+      return true;
+    }
+    else{
+      return false;
+    }
+    })
+  return personFound[0];
+  }
 
 function displayPeople(people){
   alert(people.map(function(person){
@@ -334,9 +273,16 @@ function yesNo(input){
 }
 
 function chars(input){
-  return (typeof(input) == "string");
+  if(isNaN(input)){
+    return (typeof(input) == "string");
+  }
 }
 
 function num(input){
-  return (typeof(input) == "number");
+  if(isNaN(input)){
+    return false;
+  }
+  else{
+    return (typeof(input) == "number");
+  }
 }
