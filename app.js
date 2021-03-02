@@ -76,7 +76,7 @@ function searchByName(people){
       switch(typeof(lastName) === "string"){
         case true:
           foundPerson = people.filter(function(person){
-            if(person.firstName === firstName && person.lastName === lastName){
+            if(person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()){
               return true;
             }
             else{
