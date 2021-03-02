@@ -99,27 +99,32 @@ function searchByName(people){
 
 function searchByTrait(people){
   let trait = promptFor("What color eyes does the person have?", chars);
-  let peopleFound = people.filter(function(person){
-    if(person.eyeColor === trait){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-    
-      displayPeople(peopleFound);
-  
-  let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
-  let personFound = people.filter(function(person){
-    if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  return personFound[0];  
+  switch(typeof(trait) === "string"){
+    case true:
+      let peopleFound = people.filter(function(person){
+        if(person.eyeColor === trait){
+          return true;
+        }
+        else{
+          return false;
+        }
+      })
+        
+          displayPeople(peopleFound);
+      
+      let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
+      let personFound = people.filter(function(person){
+        if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
+          return true;
+        }
+        else{
+          return false;
+        }
+      })
+      return personFound[0];  
+    break;
+    default:
+    return searchByTrait(people);//might have to change this
 }
 
 function searchByCriteria(people){
@@ -129,28 +134,57 @@ function searchByCriteria(people){
   let fourthCriteria = promptFor("How much do they weigh?", chars);
   let fifthCriteria = promptFor("What is their occupation?", chars);
 
-  let peopleFound = people.filter(function(person){
-    if(person.gender === firstCriteria || person.occupation === secondCriteria || person.height === thirdCriteria || person.weight === fourthCriteria || person.dob === fifthCriteria)//
-    {
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  
-  displayPeople(peopleFound);
-  
-  let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
-  let personFound = people.filter(function(person){
-    if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  return personFound[0];
+  switch(typeof(firstCriteria) === "string"){
+    case true:
+      switch(typeof(secondCriteria) === "string"){
+        case true:
+          switch(typeof(thirdCriteria) === "string"){
+            case true:
+              switch(typeof(fourthCriteria) === "string"){
+                case true:
+                  switch(typeof(fifthCriteria) === "string"){
+                    case true:
+                      let peopleFound = people.filter(function(person){
+                        if(person.gender === firstCriteria || person.occupation === secondCriteria || person.height === thirdCriteria || person.weight === fourthCriteria || person.dob === fifthCriteria)//
+                        {
+                          return true;
+                        }
+                        else{
+                          return false;
+                        }
+                      })
+                      
+                      displayPeople(peopleFound);
+                      
+                      let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
+                      let personFound = people.filter(function(person){
+                        if(person.firstName.toLowerCase() === chosenPerson.toLowerCase()){
+                          return true;
+                        }
+                        else{
+                          return false;
+                        }
+                      })
+                      return personFound[0];
+                    break;
+                    default:
+                    return searchByCriteria(people);//might have to change this
+                  }
+                break;
+                default:
+                return searchByCriteria(people);//might have to change this
+              }
+            break;
+            default:
+            return searchByCriteria(people);//might have to change this
+          }
+        break;
+        default:
+        return searchByCriteria(people);//might have to change this
+      }
+    break;
+    default:
+    return searchByCriteria(people);//might have to change this
 }
 
 // alerts a list of people
