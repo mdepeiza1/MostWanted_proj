@@ -124,11 +124,9 @@ function searchByTrait(people){
           }
         })
         return personFound[0];
-        break;
         default:
         return searchByTrait(people);//might have to change this
       }
-    break;
     default:
     return searchByTrait(people);//might have to change this
   }
@@ -175,27 +173,21 @@ function searchByCriteria(people){
                           }
                         })
                         return personFound[0];
-                        break;
                         default:
                         return searchByCriteria(people);//might have to change this
                       }
-                    break;
                     default:
                     return searchByCriteria(people);//might have to change this
                   }
-                break;
                 default:
                 return searchByCriteria(people);//might have to change this
               }
-            break;
             default:
             return searchByCriteria(people);//might have to change this
           }
-        break;
         default:
         return searchByCriteria(people);//might have to change this
       }
-    break;
     default:
     return searchByCriteria(people);//might have to change this
   }
