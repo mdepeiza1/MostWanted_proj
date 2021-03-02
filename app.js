@@ -111,19 +111,16 @@ function searchByTrait(people){
 
   displayPeople(peopleFound);
 
-  if(peopleFound.length == 1)
-  {
-    return peopleFound[0];
-  }
-  else if(peopleFound.length > 1)
-  {
-    let numFromList = parseInt(promptFor("Please select the number of the person from the list (1 to " + peopleFound.length + ").", chars));//might change chars to num
-    return peopleFound[numFromList-1];
-  }
-  else
-  {
-    return null;
-  }
+  let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
+  let personFound = people.filter(function(person){
+    if(person.firstName === chosenPerson){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return personFound[0];  
 }
 
 function searchByCriteria(people){
@@ -142,20 +139,19 @@ function searchByCriteria(people){
       return false;
     }
   })
+  
   displayPeople(peopleFound);
-  if(peopleFound.length == 1)
-  {
-    return peopleFound[0];
-  }
-  else if(peopleFound.length > 1)
-  {
-    let numFromList = parseInt(promptFor("Please select the number of the person from the list (1 to " + peopleFound.length + ").", chars));//might change chars to num
-    return peopleFound[numFromList-1];
-  }
-  else
-  {
-    return null;
-  }
+  
+  let chosenPerson = promptFor("Please enter first name of person you would like to view?", chars);
+  let personFound = people.filter(function(person){
+    if(person.firstName === chosenPerson){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return personFound[0];  
 }
 
 // alerts a list of people
